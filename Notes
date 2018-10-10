@@ -1,0 +1,104 @@
+<h2>Example of creating Modals with Twitter Bootstrap</h2>
+            <!-- Button trigger modal -->
+            <button class="btn btn-primary btn-lg" data-toggle="modal"
+            data-target="#myModal">
+            Launch demo modal
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close"
+            data-dismiss="modal" aria-hidden="true">
+            &times;
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+            This Modal title
+        </h4>
+    </div>
+    <div class="modal-body">
+    Add some text here
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-default"
+    data-dismiss="modal">Close
+    </button>
+    <button type="button" class="btn btn-primary">
+    Submit changes
+    </button>
+    </div>
+    </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+
+// VUE.JS ROUGH NOTE
+
+--  methods
+hideBtn: function (x) {
+          
+            if (this.content == null || this.content == "") {
+                alert('Please enter required field!');
+            } else {
+                var dataContent = this.content.toString(); //convert data to string
+                this.show = false;  //hide button after input
+                this.invoiceItems[x] = dataContent  //Push customer names to array 'invoiceItems'
+           }
+        },
+
+-- global components
+
+
+//Component to receive input data from input fields
+Vue.component('data-input-mid', {
+    template: `<div class="col-md-10 noPadding"><input id="inputBar" type="text" class="form-control invoice-input"  @input="$emit('input',$event.target.value)"  placeholder="Enter Customer Name"  key="invoiceItems"></div> `,
+})
+//Component for the 'done' button
+Vue.component('data-input-out', {
+    template: '<div class="col-md-2 noPadding"><button class="btn" v-on:click="sndData" id="inputBtn" disabled="disabled">Done</button></div> ',
+    methods: {
+        sndData: function () {
+            this.$emit('hide-input'); //when clicked send 'hide-input' event to parent component 'data-input'
+        },
+        
+    }
+})
+//Component for the 'done' button
+ var dataInput = {
+    data: function () { },
+    template: '<div class="row" ><data-input-mid @input="twoWayBind($event)"></data-input-mid><data-input-out v-on="$listeners"></data-input-out></div>',
+    methods: {
+        twoWayBind: function (event) {
+            vm.content = event;
+            if (event == "") {
+                $('#inputBtn').prop("disabled", true);
+                $('#inputBtn').attr("disabled", "disabled")
+            } else {
+                $('#inputBtn').prop("disabled", false);
+                $('#inputBtn').removeAttr("disabled")
+            }
+        }
+    }
+ }
+//component for Vue Instance
+    components: {
+        'data-input': dataInput
+    },
+
+    
+-- data
+content: null, invoiceItems: [], show: true,
+        active: false, inActive: "disabled",
+
+-- html
+ <!-- <div class="row">
+                        <div class="col-md-6">
+                            <label>Customer Name: {{content}} </label>
+                            <data-input v-if="show" @hide-input="hideBtn(0)"></data-input>
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+                </div> -->
+                2000-01-31
