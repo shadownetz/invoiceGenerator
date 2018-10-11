@@ -24,7 +24,7 @@
 
                 <div class="col-md-11 invoice-body">
                     <div class="col-md-12">
-                        <div class="row" style="padding:30px 0px 0px 0px">
+                        <div class="row" style="padding:5px 0px 0px 0px">
                             <div class="col-md-2 img"></div>
                             <div class="col-md-10" style="padding:40px 0px 0px 5px">
                                 <h3> Invoice</h3>
@@ -41,7 +41,7 @@
                             <div class="row" style="padding:5px 20px 5px">
                                 <div class="col-md-3 " style="padding-top:7px"><span><i class="fa fa-user"></i></span> Client</div>
                                 <div class="col-md-5 noPadding" >
-                                    <select class="form-control invoice-input" v-model="clientInfo[0]">
+                                    <select class="form-control invoice-input" v-model="clientInfo[0]" id="client">
                                         <option v-for="n of 3" v-bind:value="customerNames[n]">{{customerNames[n]}}</option>
                                     </select>
                                 </div>
@@ -49,7 +49,7 @@
                             <div class="row" style="padding:5px 20px 5px">
                                 <div class="col-md-3 " style="padding-top:7px"><span><i class="fa fa-phone"></i></span> Phone</div>
                                     <div class="col-md-5 noPadding" >
-                                        <input class="form-control invoice-input" type="tel" v-model="clientInfo[1]" placeholder="xxx-xxx-xxx-xx">
+                                        <input class="form-control invoice-input" type="number" v-model="clientInfo[1]" id="phone" placeholder="xxx-xxx-xxx-xx">
                                     </div>
                                 </div>
                                 <div class="row" style="padding:5px 20px 5px">
@@ -63,13 +63,13 @@
                                 <div class="row" style="padding:5px 20px 5px">
                                     <div class="col-md-4 " style="padding-top:7px"><span><i class="fa fa-bars"></i></span> Invoice No.</div>
                                         <div class="col-md-5 noPadding" >
-                                            <input class="form-control invoice-input" type="text" v-model="clientInfo[2]">
+                                            <input class="form-control invoice-input" type="text" v-model="clientInfo[2]" id="invoiceNo">
                                         </div>
                                     </div>
                                     <div class="row" style="padding:5px 20px 5px">
                                         <div class="col-md-4 " style="padding-top:7px"><span><i class="fa fa-files-o"></i></span> Payment Terms</div>
                                             <div class="col-md-5 noPadding" >
-                                                <textarea class="form-control invoice-input" type="text" v-model="clientInfo[3]"></textarea>
+                                                <textarea class="form-control invoice-input" type="text" id="terms" v-model="clientInfo[3]"></textarea>
                                             </div>
                                         </div>
                         </div>
@@ -88,6 +88,7 @@
                             </thead>
                             <tbody>
                                 <template v-for="n of count">
+                                    <!--Item list-->
                                     <tr class="table-row" v-if="show[n]">
                                         <td><button class="btn btn-link" @click="delDec(n)"><i class="fa fa-trash-o fa-lg"></i></button></td>
                                         <td><input type="number" placeholder=" quantity" :class="inputClass" v-model="quantNo[n]" id="noDec"></td>
@@ -112,7 +113,7 @@
                         </div>
                         <br><br><br><br>
                         <div class="col-md-12" style="padding-top:60px">
-                            <div class="col-md-2 mx-md-auto"><button class="btn btn-success invoice-gen" @click="validateInput">Generate</button></div>
+                            <div class="col-md-2 mx-md-auto"><button class="btn btn-success invoice-gen" @click="switchPage">Generate</button></div>
                         </div>
                     </div>
                     </div>
@@ -127,7 +128,7 @@
                             <h6>Client: {{clientInfo[0]}}</h6><br><h6>Phone: {{clientInfo[1]}}</h6>
                         </div>
                        </div>
-                       <div class="col-md-10" style="padding-top:20px">
+                       <div class="col-md-10 mx-md-auto" style="padding-top:20px">
                            <table class="table table-bordered">
                                <thead>
                                    <tr class="t-invoice">
@@ -143,11 +144,19 @@
                                             <td>{{quantNo[n]}}</td>
                                             <td>{{services[n]}}</td>
                                             <td>{{descriptions[n]}}</td>
-                                            <td>{{amounts[n]}}</td>
+                                            <td>{{total[n]}}</td>
                                         </tr>
                                     </template>
                                 </tbody>
                            </table>
+                           <div class="row" style="float:right;clear:both">
+                                <span><label for="total">VAT: </label></span> 
+                                <div  style="width:200px;margin-left:10px;padding-left:10px;border:1px solid #8eddd4">{{vat}}%</div>
+                    </div>
+                           <div class="row" style="float:right;clear: both;padding-top:10px">
+                                        <span><label for="total">Net Total: </label></span> 
+                                        <div  style="width:200px;margin-left:10px;padding-left:10px;border:1px solid #8eddd4">{{netTotal}}</div>
+                            </div>
                        </div>
                     </div>
                 </div>
