@@ -16,7 +16,7 @@ var vm = new Vue({
         clientInfo: [], count:2, quantNo: [null], services: [], descriptions: [], amounts: [],
         show: ['', true], vat: 5, togglePage: true, myDate: new Date().toISOString().slice(0, 10),
         total: [], netTotal: null,warnMsg: "Warning !", inputClass: ['form-control', 'invoice-input'],
-        check: null,
+        check: null,temp:null
     },
     watch: {
         //watch when value of the amounts and quantity=>quantNo changes so it
@@ -75,6 +75,7 @@ var vm = new Vue({
                         continue
                     }
                 }
+                setTimeout(function(){window.print()},1000)
             }
         },
         //calcuate total of all visible item
@@ -93,12 +94,18 @@ var vm = new Vue({
         },
         //exec when quantity value changes
         forQty: function () {
+            
             for (var i = 1; i < this.amounts.length; i++) {
                 if (this.show[i] !== null && this.show[i] !== '') {
                     if (this.amounts[i] !== " " || this.amounts[i] != null) {
-                        if (this.quantNo[i] <= 0) { this.quantNo[i] = 1 }
+                        if (this.quantNo[i] <= 0) {
+                            this.temp = 1
+                            var total = (this.temp * this.amounts[i]).toFixed(3)
+                        vm.$set(vm.total, i, total)
+                        } else {
                         var total = (this.quantNo[i] * this.amounts[i]).toFixed(3)
                         vm.$set(vm.total, i, total)
+                        }
                     }
                     if (this.quantNo[i] == "" || this.quantNo[i] == null) {
                         vm.$set(vm.total, i, this.amounts[i])
