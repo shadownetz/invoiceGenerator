@@ -15,7 +15,7 @@
 .form-control{border-radius: 2px;color:#34495e}
 .noPadding textarea{resize: none;height:85px  }
 div{color:#34495e;font-family: 'Ubuntu', sans-serif;}
-.table-bordered .t-invoice{
+ .t-invoice{
     background:#9fd3cd;color: rgb(50,50,50)
 }
 .table-row td{padding:5px!important;border:1px solid #fff}
