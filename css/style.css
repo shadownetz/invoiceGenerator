@@ -2,7 +2,7 @@
    min-height:600px
 }
 .invoice-body{
-    background-color: rgb(250,250,250);min-height:100%;
+    background-color: rgb(250,250,250);min-height:1000px;
 }
 .invoice-body .img{
     background:url("../images/grandilo.png") no-repeat center left;
@@ -12,11 +12,11 @@
 .noPadding{padding:0;}
 #inputBtn{background: #199a8b;color:#fff}
 .invoice-input:focus{box-shadow: -1px 1px 1px #199a8b}
-.form-control{border-radius: 2px;color:#34495e}
+.form-control{border-radius: 2px;color:rgb(50,50,50)}
 .noPadding textarea{resize: none;height:85px  }
-div{color:#34495e;font-family: 'Ubuntu', sans-serif;}
+div{color:#1F4E79;font-family: 'Ubuntu', sans-serif;}
  .t-invoice{
-    background:#9fd3cd;color: rgb(50,50,50)
+    background:rgb(159, 200, 238);color: rgb(20,20,20)
 }
 .table-row td{padding:5px!important;border:1px solid #fff}
 .btn-link{color:rgb(50,50,150);}
@@ -35,8 +35,8 @@ div{color:#34495e;font-family: 'Ubuntu', sans-serif;}
     background-color: #e9ecef;
     opacity: 1;
 }
-.invoice-gen{background-color: #199a8b;border-color:transparent!important}
-.invoice-gen:hover{background-color:#0d8a7b}
+.invoice-gen{background-color: rgb(43, 115, 184);border-color:transparent!important}
+.invoice-gen:hover{background-color:rgb(4, 87, 165)}
 .invoice-No{
     background-color:rgb(250,250,250);width:200px;margin-left:0;height:100px;
     transform: rotateZ(-90deg);margin-top:300px;text-align: center;padding-top:5px;font-size: 1.2em;

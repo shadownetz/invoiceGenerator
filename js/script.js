@@ -1,4 +1,17 @@
  // (@ts-check)
+ //setting configuration for app
+var config = {
+    apikey: "AIzaSyDXF4e6Rjyy0kJUk9vEcMsDfo1ekjDNYDU",
+    authDomain: "invoicegenerator-8f854.firebaseapp.com",
+    databaseURL: "https://invoicegenerator-8f854.firebaseio.com",
+    storageBucket: "invoicegenerator-8f854.appspot.com",
+};
+firebase.initializeApp(config);
+//getting reference to the database service 
+var database = firebase.database();
+
+
+
  //Function to regulate key input in quantity field
  $(function () {
     $("#noDec").on("keypress keyup blur",function (event) {    
@@ -66,7 +79,7 @@ var vm = new Vue({
                 year = date.slice(0, 4); //gets only the year
                 month = months[date.slice(5, 7) - 1]; //assigns the month number value to its String rep in 'months' array
                 day = date.slice(8)
-                this.myDate = day + " " + month + " " + year;
+                this.myDate = month + " " + day + ", " + year;
                 this.count = 0; //resets 'count' to zero in order to recount new item to show in table
                 for (var i = 1; i < this.show.length; i++) { // displays all visible items with their respective data
                     if (this.show[i] !== null || this.show[i] !== "") { //count all visible items

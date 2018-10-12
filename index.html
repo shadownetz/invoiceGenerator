@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+            <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
         <!--Vue JS -->
         <script src="js/vue.js"></script>
         <!--Google Fonts-->
@@ -18,7 +19,7 @@
     </head>
     <body>
             <div class="row" id="invoice-header">
-                <div class="col-md-1" style="padding:auto 0px;background-color:#9fd3cd">
+                <div class="col-md-1" style="padding:auto 0px;background-color:rgb(59, 140, 216)">
                         <!-- <label class="invoice-No"># {{clientInfo[2]}}</label> -->
                 </div>
 
@@ -26,7 +27,7 @@
                     <div class="col-md-12">
                         <div class="row" style="padding:5px 0px 0px 0px">
                             <div class="col-md-2 img"></div>
-                            <div class="col-md-10" style="padding:43px 0px 0px 5px">
+                            <div class="col-md-10" style="padding:43px 0px 0px 5px;color:#199a8b;font-weight:bolder;font-size:1.5em;font-family: Arial, Helvetica, sans-serif">
                                 <h3> Technology</h3>
                             </div>
                             <div class="warn">
@@ -119,14 +120,10 @@
                     </div>
                     <div v-else id="dialog">
                        <div>
-                           <h4 style="color: #0d8a7b;padding-left:15px">{{myDate}}</h4>
+                           <h4 style="color: rgb(67, 159, 245);padding-left:15px">{{myDate}}</h4>
                        </div>
                        <div class="col-md-12" style="padding-top:30px"><h4>Invoice No: # {{clientInfo[2]}}</h4></div>
                        <div class="col-md-4">
-                        <!-- <div class="col-md-12" style="background-color:#9fd3cd;padding-left:10px;font-size:20px">Bill To</div>
-                        <div class="col-md-12" style="border:1px solid rgb(200,200,200);padding: 0 10px">
-                            <h6>Client: {{clientInfo[0]}}</h6><br><h6>Phone: {{clientInfo[1]}}</h6>
-                        </div> -->
                         <table class="table" style="border:1px solid rgb(150,150,150)">
                             <thead><tr class="t-invoice"><td colspan="2">Bill To</td></tr></thead>
                             <tbody>
@@ -194,6 +191,14 @@
                            </table>
                        </div>
                     </div>
+                    <footer  style="margin-top:50%">
+                        <div class="col-md-12"><h5>Grandilo Technology</h5></div>
+                        <div class="col-md-12" style="color:rgb(50,50,50)">
+                            <p>32  Barikisu Iyede Street, Off Unilag Road, Yaba, Lagos, Nigeria <span style="color:rgb(67, 159, 245)">|</span> www.grandilo.com</p>
+                            <p>+2347039056183 <span style="color:rgb(67, 159, 245)">|</span> info@grandilo.com</p>
+                        </div>
+                        </div>
+                    </footer>
                 </div>
             </div>
         <script src="js/script.js"></script>
