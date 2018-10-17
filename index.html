@@ -12,6 +12,8 @@
         <link rel="stylesheet" href="css/font-awesome.css">
         <!-- Author Style -->
         <link rel="stylesheet" href="css/style.css">
+        <!--Animate Styles-->
+        <link rel="stylesheet" href="css/animate.min.css">
         <!-- Jquery and Bootstrap script -->
         <script src="js/jquery-3.3.1.js"></script>
         <script src="js/bootstrap.js"></script>
@@ -19,15 +21,15 @@
     </head>
     <body>
             <div class="row" id="invoice-header">
-                <div class="col-md-1" style="padding:auto 0px;background-color:rgb(59, 140, 216)">
+                <div class="col-md-1" style="padding:auto 0px;background-color:#199a8b">
                         <!-- <label class="invoice-No"># {{clientInfo[2]}}</label> -->
                 </div>
 
-                <div class="col-md-11 invoice-body">
+                <div class="col-md-11 invoice-body  animated fadeIn">
                     <div class="col-md-12">
                         <div class="row" style="padding:5px 0px 0px 0px">
                             <div class="col-md-2 img"></div>
-                            <div class="col-md-10" style="padding:43px 0px 0px 5px;color:#199a8b;font-weight:bolder;font-size:1.5em;font-family: Arial, Helvetica, sans-serif">
+                            <div class="col-md-10" style="padding:43px 0px 0px 5px;color:#199a8b;font-weight:bold;font-size:1.5em;font-family: Arial, Helvetica, sans-serif">
                                 <h3> Technology</h3>
                             </div>
                             <div class="warn">
@@ -43,7 +45,7 @@
                                 <div class="col-md-3 " style="padding-top:7px"><span><i class="fa fa-user"></i></span> Client</div>
                                 <div class="col-md-5 noPadding" >
                                     <select class="form-control invoice-input" v-model="clientInfo[0]" id="client">
-                                        <option v-for="n of 3" v-bind:value="customerNames[n]">{{customerNames[n]}}</option>
+                                        <option v-for="n of 3" v-bind:value="clientNames[n]">{{clientNames[n]}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -118,9 +120,9 @@
                         </div>
                     </div>
                     </div>
-                    <div v-else id="dialog">
+                    <div v-else id="dialog" class="animated fadeIn">
                        <div>
-                           <h4 style="color: rgb(67, 159, 245);padding-left:15px">{{myDate}}</h4>
+                           <h4 style="color: #199a8b;padding-left:15px">{{myDate}}</h4>
                        </div>
                        <div class="col-md-12" style="padding-top:30px"><h4>Invoice No: # {{clientInfo[2]}}</h4></div>
                        <div class="col-md-4">
@@ -191,11 +193,11 @@
                            </table>
                        </div>
                     </div>
-                    <footer  style="margin-top:50%">
-                        <div class="col-md-12"><h5>Grandilo Technology</h5></div>
+                    <footer  style="margin-top:100px">
+                        <div class="col-md-12" style="color:#0b8d7e;text-shadow: 1px 1px 2px #8eddd4"><h5>Grandilo Technology</h5></div>
                         <div class="col-md-12" style="color:rgb(50,50,50)">
-                            <p>32  Barikisu Iyede Street, Off Unilag Road, Yaba, Lagos, Nigeria <span style="color:rgb(67, 159, 245)">|</span> www.grandilo.com</p>
-                            <p>+2347039056183 <span style="color:rgb(67, 159, 245)">|</span> info@grandilo.com</p>
+                            <p>32  Barikisu Iyede Street, Off Unilag Road, Yaba, Lagos, Nigeria <span style="color:#0d7065">|</span> www.grandilo.com</p>
+                            <p>+2347039056183 <span style="color:#0d7065">|</span> info@grandilo.com</p>
                         </div>
                         </div>
                     </footer>

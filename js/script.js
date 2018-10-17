@@ -1,16 +1,16 @@
  // (@ts-check)
  //setting configuration for app
-var config = {
-    apikey: "AIzaSyDXF4e6Rjyy0kJUk9vEcMsDfo1ekjDNYDU",
-    authDomain: "invoicegenerator-8f854.firebaseapp.com",
-    databaseURL: "https://invoicegenerator-8f854.firebaseio.com",
-    storageBucket: "invoicegenerator-8f854.appspot.com",
-};
-firebase.initializeApp(config);
-//getting reference to the database service 
-var database = firebase.database();
-
-
+// var config = {
+//     apikey: "AIzaSyDXF4e6Rjyy0kJUk9vEcMsDfo1ekjDNYDU",
+//     authDomain: "invoicegenerator-8f854.firebaseapp.com",
+//     databaseURL: "https://invoicegenerator-8f854.firebaseio.com",
+//     storageBucket: "invoicegenerator-8f854.appspot.com",
+// };
+// firebase.initializeApp(config);
+// //getting reference to the database service 
+// var database = firebase.database();
+// const clientNames = database.ref("clients/names/");
+// const clientNos = database.ref('clients/contactNos/');
 
  //Function to regulate key input in quantity field
  $(function () {
@@ -25,11 +25,11 @@ var database = firebase.database();
 var vm = new Vue({
     el: '#invoice-header',
     data: {
-        customerNames: ['', 'name', 'user', 'user'],
-        clientInfo: [], count:2, quantNo: [null], services: [], descriptions: [], amounts: [],
+        clientNames: [null],
+        clientInfo: [], count: 2, quantNo: [null], services: [], descriptions: [], amounts: [],
         show: ['', true], vat: 5, togglePage: true, myDate: new Date().toISOString().slice(0, 10),
-        total: [], netTotal: null,warnMsg: "Warning !", inputClass: ['form-control', 'invoice-input'],
-        check: null,temp:null
+        total: [], netTotal: null, warnMsg: "Warning !", inputClass: ['form-control', 'invoice-input'],
+        check: null, temp: null
     },
     watch: {
         //watch when value of the amounts and quantity=>quantNo changes so it
@@ -45,16 +45,26 @@ var vm = new Vue({
         //Function to calculate the sumTotal of all totals for each item in invoice
         calcTotal: function () {
             var amntTotal = 0;
-            for (var i = 1; i < this.amounts.length; i++){  //will not exec if the amount of each item is empty 
+            for (var i = 1; i < this.amounts.length; i++) {  //will not exec if the amount of each item is empty 
                 if (this.show[i] !== null && this.show[i] !== '') { //checks if each item is visible before exec
                     amntTotal += Number(this.total[i])
                 } else {
                     continue;
                 }
             }
-            this.netTotal = parseFloat(amntTotal + (5/100)).toFixed(3)
-            return parseFloat(amntTotal + (5/100)).toFixed(3) //returns values in 3 decimal places
+            this.netTotal = parseFloat(amntTotal + (5 / 100)).toFixed(3)
+            return parseFloat(amntTotal + (5 / 100)).toFixed(3) //returns values in 3 decimal places
         },
+        retrieveInfo: function () {
+            this.names.once('value', function (snapshot) {
+                var count = 1;
+                snapshot.forEach(function (childsnapshot) {
+                    this.clientNames[count] = childsnapshot.val()
+                   // vm.$clientNames[count] = childsnapshot.val();
+                    //vm.$set(vm.$clientNames,count,childsnapshot.val())
+               })
+            })
+        }
     },
     methods: {
         //Increments counts and registers the item as visible in array 'show'
@@ -66,10 +76,10 @@ var vm = new Vue({
         //When the delete icon is clicked assign a null value to the visiblity
         //of the item in array 'show' with the index of the item passed as parameter
         delDec: function (x) {
-        // this.show[x] = null; //non-reactive
-            vm.$set(vm.show,x,null)
+            // this.show[x] = null; //non-reactive
+            vm.$set(vm.show, x, null)
         },
-    //    When the 'generate' button is clicked, function validates and toggles page 
+        //    When the 'generate' button is clicked, function validates and toggles page 
         switchPage: function () {
             this.validateInput(); //calling function 'validateInput' validates required inputs
             if (this.check) { // if there are no errors i.e when 'check' variable is set to true
@@ -88,12 +98,12 @@ var vm = new Vue({
                         continue
                     }
                 }
-                setTimeout(function(){window.print()},1000)
+                setTimeout(function () { window.print() }, 1000)
             }
         },
         //calcuate total of all visible item
         sumTotal: function () {
-            for (var i = 1; i < this.amounts.length; i++){
+            for (var i = 1; i < this.amounts.length; i++) {
                 if (this.show[i] !== null && this.show[i] !== '') { //if item is visible
                     if (this.quantNo[i] !== " " && this.quantNo[i] != null) { //if the quantity value is not empty
                         if (this.quantNo[i] == 0) { this.quantNo[i] = 1 }   //if the quantity value is 0 assign default value '1'
@@ -114,10 +124,10 @@ var vm = new Vue({
                         if (this.quantNo[i] <= 0) {
                             this.temp = 1
                             var total = (this.temp * this.amounts[i]).toFixed(3)
-                        vm.$set(vm.total, i, total)
+                            vm.$set(vm.total, i, total)
                         } else {
-                        var total = (this.quantNo[i] * this.amounts[i]).toFixed(3)
-                        vm.$set(vm.total, i, total)
+                            var total = (this.quantNo[i] * this.amounts[i]).toFixed(3)
+                            vm.$set(vm.total, i, total)
                         }
                     }
                     if (this.quantNo[i] == "" || this.quantNo[i] == null) {
@@ -128,8 +138,8 @@ var vm = new Vue({
         },
         //function validates required inputs
         validateInput: function () {
-            for (var i = 1; i < this.show.length; i++){
-                var service = '#service'+i //dynamically get id of of all service input fields
+            for (var i = 1; i < this.show.length; i++) {
+                var service = '#service' + i //dynamically get id of of all service input fields
                 var descp = '#descp' + i  //dynamically get id of of all description input fields
                 var noDeci = '#noDeci' + i  //dynamically get id of of all amount input fields
                 if (this.clientInfo[0] == null || this.clientInfo[0] == "") { //if client name is empty
@@ -187,7 +197,7 @@ var vm = new Vue({
                     this.check = false
                     this.warnMsg = "fill in the required fields"
                     $(service).addClass("err")
-                } else{
+                } else {
                     this.check = true
                     $(service).removeClass("err")
                 }
@@ -195,7 +205,7 @@ var vm = new Vue({
                     $('.warn').fadeIn('slow')
                     this.check = false
                     $(descp).addClass("err")
-                } else{
+                } else {
                     this.check = true
                     $(descp).removeClass("err")
                 }
@@ -203,18 +213,25 @@ var vm = new Vue({
                     $('.warn').fadeIn('slow')
                     this.check = false
                     $(noDeci).addClass("err")
-                } else{
+                } else {
                     this.check = true
                     $(noDeci).removeClass("err")
-                } 
+                }
 
-                if(this.check){ //if no error remove error message
+                if (this.check) { //if no error remove error message
                     $('.warn').fadeOut('slow')
-                    }
+                }
             }
         }
     },
 
-})
+});
 
 
+
+// vm.$set(vm.total, i, this.amounts[i])
+// clientNos.once('value', function (snapshot) {
+//     snapshot.forEach(function (childsnapshot) {
+//         $vm.clientInfo[1] = childsnapshot.val();
+//    })
+// })
